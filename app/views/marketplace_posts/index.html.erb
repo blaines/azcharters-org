@@ -1,0 +1,22 @@
+<%= content_for :title do %>
+Marketplace
+<% end %>
+
+<div><form method="get"><input type="text" size="40" placeholder="Search for" name="q"></input><input type="text" placeholder="Zip" name="zip"></input><br>Price:<input type="number" name="price_from" placeholder="min"></input><input type="number" name="price_to" placeholder="max"></input><input type="submit" value="Search"></input></form></div>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Zip</th>
+    <th>Price</th>
+  </tr>
+  <% for marketplace_post in @marketplace_posts %>
+    <tr>
+      <td><%= link_to marketplace_post.title, marketplace_post %></td>
+      <td><%= marketplace_post.zip %></td>
+      <td><%= number_to_currency(marketplace_post.price) %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Marketplace Post", new_marketplace_post_path %></p>

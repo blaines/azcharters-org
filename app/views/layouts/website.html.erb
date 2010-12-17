@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<title><%= h(yield(:title) || "Untitled") %></title>
+	<%= yield(:head) %>
+	<style>
+	.tag {
+		padding: 2px 5px;
+		border-left: 1px solid #DDD;
+	}
+	.tag:first-child {
+		border-left: none;
+	}
+	</style>
+</head>
+<body>
+	<%= content_tag(:div,link_to("Home", root_url)) %>
+	<%= content_tag(:div,link_to("News", news_path)) %>
+	<%= content_tag(:div,link_to("Login", new_user_session_path)) unless user_signed_in? %>
+	<%= content_tag(:div,link_to("Logout", destroy_user_session_path)) if user_signed_in? %>
+	<%= content_tag(:div,link_to("Dashboard", dashboard_path)) if user_signed_in? %>
+	<h1><%= h(yield(:title) || "Untitled") %></h1>
+	<%= yield %>
+</body>
+</html>

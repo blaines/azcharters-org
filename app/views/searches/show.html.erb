@@ -1,0 +1,15 @@
+<%= content_for :title do %>
+Search Results
+<% end %>
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+  </tr>
+  <% for result in @results %>
+    <tr>
+      <td><%= result.class.name.titleize.gsub(/post/mi,"") %></td>
+      <td><%= link_to result.title, result %></td>
+    </tr>
+  <% end %>
+</table>

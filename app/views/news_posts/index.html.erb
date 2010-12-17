@@ -1,0 +1,19 @@
+<% title "News Posts" %>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Keywords</th>
+  </tr>
+  <% for news_post in @news_posts %>
+    <tr>
+      <td><%= news_post.title %></td>
+      <td><%= news_post.categories %></td>
+      <td><%= link_to "Show", news_post %></td>
+      <td><%= link_to "Edit", edit_news_post_path(news_post) %></td>
+      <td><%= link_to "Destroy", news_post, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New News Post", new_news_post_path %></p>

@@ -1,0 +1,10 @@
+<%= content_for :title do %>
+Edit <%= @contact.name %>
+<% end %>
+
+<%= render :partial => 'form' %>
+
+<p>
+  <%= link_to "Show", @contact %> |
+  <%= link_to "View All", contacts_path %>
+</p>

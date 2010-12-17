@@ -1,0 +1,10 @@
+<% title "Event" %>
+
+<h2>
+  <%=h @event.name %>
+</h2>
+<p>
+  <%= link_to "Edit", edit_event_path(@event) %> |
+  <%= link_to "Destroy", @event, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", events_path %>
+</p>

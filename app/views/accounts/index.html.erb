@@ -1,0 +1,24 @@
+<%= content_for :title do %>
+Accounts
+<% end %>
+
+<div><form method="get"><input type="text" size="40" placeholder="Account Name" name="name"></input><input type="submit" value="Search"></input></form></div>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Balance</th>
+  </tr>
+  <% for account in @accounts %>
+    <tr>
+      <td><%=h account.name %></td>
+      <td><%=h account.pds__current_balance__c %></td>
+      <td><%= link_to "Show", account %></td>
+      <td><%= link_to "Edit", edit_account_path(account) %></td>
+      <td><%= link_to "Destroy", account, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Account", new_account_path %></p>
+<p><%= will_paginate @accounts %></p>

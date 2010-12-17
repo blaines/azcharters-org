@@ -1,0 +1,17 @@
+<% content_for :title do %>
+Arizona Charter Schools Association
+<% end %>
+
+<p>You're looking at the home page. Navigation above, pages below...</p>
+
+<br>
+
+<span class="tree">
+<%= (tree_ul(@pages) {|item| link_to h(item.title), webpage_path(item) }).html_safe unless @pages.blank? %>
+</span>
+
+<style>
+	.tree li {
+		padding: 5px;
+	}
+</style>

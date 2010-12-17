@@ -1,0 +1,8 @@
+<% semantic_form_for @contact do |f| %>
+<% f.inputs do %>
+<%= f.input :first_name, :as => :string %>
+<%= f.input :last_name, :as => :string %>
+<%= f.input :email, :as => :string %>
+<% end %>
+<%= f.buttons %>
+<% end %>

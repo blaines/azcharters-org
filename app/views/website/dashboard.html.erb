@@ -1,0 +1,13 @@
+<% content_for :title do %>
+	<% if @user.respond_to?(:account) && !@user.account.blank? %>
+		<%= @user.account.name %>
+	<% else %>
+		Dashbard
+	<% end %>
+<% end %>
+
+Welcome <%= @user.name %>
+
+<% if @user.respond_to?(:account) && !@user.account.blank? %>
+Your current balance: <%= number_to_currency(@user.account.pds__current_balance__c.to_f) %>
+<% end %>

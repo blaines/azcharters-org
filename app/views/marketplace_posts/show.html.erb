@@ -1,0 +1,11 @@
+<%= content_for :title do %>
+<%= @marketplace_post.title %>- <%= number_to_currency(@marketplace_post.price) %> - <%= @marketplace_post.zip %>
+<% end %>
+
+<%= simple_format(@marketplace_post.body) %>
+
+<p>
+  <%= link_to "Edit", edit_marketplace_post_path(@marketplace_post) %> |
+  <%= link_to "Destroy", @marketplace_post, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", marketplace_posts_path %>
+</p>

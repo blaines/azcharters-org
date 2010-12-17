@@ -1,0 +1,96 @@
+<% semantic_form_for @news_post do |f| %>
+<% f.inputs do %>
+<%= f.input :title, :as => :string %>
+<%= f.input :body, :as => :text %>
+<%= f.input :categories %>
+<% end %>
+<%= f.buttons %>
+<% end %>
+<% content_for :head do %>
+<%= javascript_include_tag "wysihat", "textboxlist" %>
+<script type="text/javascript" charset="utf-8">
+WysiHat.Commands.promptLinkSelection = function() {
+	if (this.linkSelected()) {
+		if (confirm("Remove link?"))
+		this.unlinkSelection();
+	} else {
+		var value = prompt("Enter a URL", "http://www.google.com/");
+		if (value)
+		this.linkSelection(value);
+	}
+}
+
+document.on("dom:loaded", function() {
+	var editor = WysiHat.Editor.attach('news_post_body');
+	var toolbar = new WysiHat.Toolbar(editor);
+	toolbar.addButtonSet(WysiHat.Toolbar.ButtonSets.Basic);
+
+	toolbar.addButton({
+		label: "Header",
+		handler: function(editor) { return editor.formatblockSelection("h2"); }
+	});
+	toolbar.addButton({
+		label: "Ordered List",
+		handler: function(editor) { return editor.insertOrderedList(); }
+	});
+	toolbar.addButton({
+		label: "Unordered List",
+		handler: function(editor) { return editor.insertUnorderedList(); }
+	});
+	toolbar.addButton({
+		label: "Link",
+		handler: function(editor) { return editor.promptLinkSelection(); }
+	});
+
+	// Hide our error message if the editor loads fine
+	// $('error').hide();
+
+	// Save editor to textarea before submit
+	$$('form').each(function(f){
+		f.onsubmit = function(){
+			$('news_post_body').setValue((editor.innerHTML));
+		};
+	});
+
+	// Textboxlist --=----=----=----=----=----=----=----=--
+	// 
+	// $("news_post_categories").insert({after:'<div id="news_post_categories_autocomplete"><div class="default">Type a category name</div><ul class="feed"></ul></div>'});
+	// 
+	// list = new FacebookList('news_post_categories', 'news_post_categories_autocomplete');
+	// 
+	// new Ajax.Request('/news_posts/tags.json', {
+	// 	method: 'get',
+	// 	onSuccess: function(transport) {
+	// 		transport.responseText.evalJSON(true).each(function(t){list.autoFeed(t)});
+	// 	}
+	// }); 
+
+  list = new TextboxList('news_post_categories', {
+	url: '/news_posts/tags.json',
+    customTagKeys: [{
+      character: '"',
+      printable: true,
+      isPair: true
+    }, {
+      character: ',',
+      printable: true
+    }, {
+	  keyCode: Event.KEY_RETURN
+	}, {
+      keyCode: Event.KEY_TAB
+	}],
+	startsWith: true,
+	opacity: 1,
+	regExp: '^{0}',
+	requestDelay: 0,
+    hintMessage: 'Type to see categories or create your own.'
+  });
+
+
+});
+
+</script>
+<script type="text/javascript" charset="utf-8"> 
+
+</script>
+<% end %>

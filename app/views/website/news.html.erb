@@ -1,0 +1,9 @@
+<% content_for :title do %>
+News
+<% end %>
+<% for post in @posts %>
+<hr>
+<h2><%= post.title %></h2>
+<p><%= simple_format(post.body.html_safe) %></p>
+<p><%= post.created_at %> <%= arr_to_tags(post.categories).html_safe %></p>
+<% end %>

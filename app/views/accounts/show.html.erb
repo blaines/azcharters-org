@@ -1,0 +1,44 @@
+<%= content_for :title do %>
+<%= @account.name %>
+<% end %>
+
+<p>
+  <strong>Name:</strong>
+  <%=h @account.name %>
+</p>
+<p>
+  <strong>Billing Address:</strong>
+  <%=simple_format "#{@account.pds__qb_billing_address__c}" %>
+</p>
+<p>
+  <strong>Email:</strong>
+  <%=h @account.primary_email__c %>
+</p>
+<p>
+  <strong>Balance:</strong>
+  <%=h number_to_currency(@account.pds__current_balance__c) %>
+</p>
+
+<table>
+  <tr>
+    <th>First Name</th>
+    <th>Last Name</th>
+  </tr>
+  <% for contact in @account.contacts %>
+    <tr>
+      <td><%=h contact.first_name %></td>
+      <td><%=h contact.last_name %></td>
+      <td><%= link_to "Show", contact %></td>
+      <td><%= link_to("Invite", invite_contact_path(contact)) unless contact.user %></td>
+      <td><%= link_to "Edit", edit_contact_path(contact) %></td>
+      <td><%= link_to "Destroy", contact, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p>
+  <%= link_to "Refresh", refresh_account_path(@account) %> |
+  <%= link_to "Edit", edit_account_path(@account) %> |
+  <%= link_to "Destroy", @account, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", accounts_path %>
+</p>
